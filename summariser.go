@@ -25,7 +25,7 @@ func getCommitMap(commitMaps []*orgDetails, storyID string) (*orgDetails, int) {
 	return &orgDetails{}, -1
 }
 
-func getStroryID(commitMessage string) string {
+func getStoryID(commitMessage string) string {
 	a := strings.Split(commitMessage, "PAM")[1]
 	b := strings.Split(a, ">")[0]
 	if strings.Contains(b,"-") {
@@ -60,7 +60,7 @@ func getAllFormatedCommits(basePath, orgName, directoryName string) []*orgDetail
 
 	err = co.ForEach(func(commit *object.Commit) error {
 		if strings.Contains(commit.Message, "PAM") {
-			storyID := getStroryID(commit.Message)
+			storyID := getStoryID(commit.Message)
 			commitMap, index := getCommitMap(allCommits, storyID)
 			commitMap.storyID = storyID
 			commitMap.orgName = orgName
