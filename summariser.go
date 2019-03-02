@@ -92,12 +92,17 @@ func main() {
 	basePath := flag.String("basePath", goPath, "Base path from where the summariser will start the search")
 	orgName := flag.String("orgName", "", "Organisation name or parent directory from where the summariser will start the search in the base path, if empty will search in all organisations")
 	directoryName := flag.String("directoryName", "", "specific directory name under the base path and organisation, if kept empty will search for all directory in an organizations")
-	allCommits := getAllFormatedCommits(*basePath, *orgName, *directoryName)
-	for _, commit := range allCommits {
-		fmt.Println("story id:", commit.storyID)
-		fmt.Println("org name:", commit.orgName)
-		fmt.Println("directory name:", commit.directoryName)
-		fmt.Println("commits:", strings.Join(commit.commits, "\n"))
-		fmt.Println("___________________________________________________n\n\n\n\n\n\n\n\n\n")
+
+	flag.Usage()
+
+	if *orgName != "" && *directoryName != "" {
+		allCommits := getAllFormatedCommits(*basePath, *orgName, *directoryName)
+		for _, commit := range allCommits {
+			fmt.Println("story id:", commit.storyID)
+			fmt.Println("org name:", commit.orgName)
+			fmt.Println("directory name:", commit.directoryName)
+			fmt.Println("commits:", strings.Join(commit.commits, "\n"))
+			fmt.Println("___________________________________________________n\n\n\n\n\n\n\n\n\n")
+		}
 	}
 }
